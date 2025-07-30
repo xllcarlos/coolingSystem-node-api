@@ -12,4 +12,25 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Mode {
+  AUTOMATICO
+  MANUAL
+}
+
+model SensorData {
+  id          String    @id @default(uuid())
+  humidity    Float
+  temperature Float
+  timestamp   DateTime  @default(now())
+}
+
+model ControlCommand {
+  id          String    @id @default(uuid())
+  mode        Mode
+  ventilador  Boolean
+  aspersor    Boolean
+  timestamp   DateTime  @default(now())
 }
